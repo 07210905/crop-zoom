@@ -1,0 +1,27 @@
+name: test
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: node ${{ matrix.node }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        node: ['22', '24']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+      - run: npm install --no-audit --no-fund
+      - run: npm test
+      - name: CLI smoke test
+        run: |
+          node bin/crop-zoom.mjs --help
+          node -e "import('sharp').then(async ({default:sharp})=>{await sharp({create:{width:64,height:32,channels:4,background:{r:9,g:9,b:9,alpha:1}}}).png().toFile('smoke.png')})"
+          node bin/crop-zoom.mjs -i smoke.png -r 0,0,32,16 -s 4 --json
