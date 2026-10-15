@@ -1,0 +1,11 @@
+# dsh bundle layer: mount the crop-zoom tool plugin.
+#
+# This file is read because the profile's package.json lists this package under
+# `dsh.profile.bundles` (written by `dsh plugin --profile <name> add dsh-crop-zoom`).
+# The loader resolves `name` from the profile's node_modules and loads the
+# package root export, which package.json maps to ./dsh/index.js.
+#
+# `insert` appends a new row; it never overwrites a row that already exists.
+- insert:
+    - id: crop-zoom
+      name: dsh-crop-zoom

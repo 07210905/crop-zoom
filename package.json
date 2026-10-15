@@ -1,0 +1,61 @@
+{
+  "name": "dsh-crop-zoom",
+  "version": "0.1.0",
+  "description": "Magnify a region of a screenshot so small text becomes readable: a DeepSeek Harness (dsh) tool plus a standalone CLI that crops and upscales before a model reads it.",
+  "type": "module",
+  "license": "MIT",
+  "author": "jbds (https://github.com/07210905)",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/07210905/crop-zoom.git"
+  },
+  "homepage": "https://github.com/07210905/crop-zoom#readme",
+  "bugs": {
+    "url": "https://github.com/07210905/crop-zoom/issues"
+  },
+  "main": "./dsh/index.js",
+  "bin": {
+    "crop-zoom": "./bin/crop-zoom.mjs"
+  },
+  "files": [
+    "bin",
+    "dsh",
+    "lib",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "crop",
+    "zoom",
+    "magnify",
+    "upscale",
+    "ocr",
+    "screenshot",
+    "text-only",
+    "vision"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node test/run.mjs && node test/plugin.mjs"
+  },
+  "dependencies": {
+    "sharp": "^0.35.5"
+  },
+  "exports": {
+    ".": "./dsh/index.js",
+    "./dsh": "./dsh/index.js",
+    "./lib": "./lib/crop.js",
+    "./package.json": "./package.json"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  }
+}
