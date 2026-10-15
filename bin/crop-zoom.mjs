@@ -6,6 +6,7 @@
 //
 // -r may be repeated. Coordinates are [x, y, width, height] in source pixels.
 
+import { resolve } from 'node:path'
 import { CropZoomError, DEFAULT_TARGET, MAX_REGIONS, MAX_SCALE, cropZoom, formatResult } from '../lib/crop.js'
 
 const USAGE = `crop-zoom - crop and magnify image regions
@@ -103,8 +104,11 @@ async function main() {
   }
 
   try {
+    // The core insists on an absolute path so that a tool call can never be
+    // ambiguous about which file it meant. A human typing at a shell expects
+    // the opposite. The CLI is where those two conventions meet.
     const result = await cropZoom({
-      path: parsed.path,
+      path: resolve(parsed.path),
       regions: parsed.regions,
       scale: parsed.scale,
       target: parsed.target,
